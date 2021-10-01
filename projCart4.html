@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cart</title>
+    <style>
+        #products {
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            grid-gap: 5%;
+            margin: 20px;
+            text-align: center;
+            width: 90%;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 128px;
+        }
+
+        #outer {
+            display: grid;
+            grid-template-columns: 82% 18%;
+        }
+
+        #spn {
+            color: orange;
+        }
+
+        #checkOut {
+            background-color: #FF9800;
+            padding: 12px 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 18px;
+            border: 2px solid black;
+            margin-top: 32px;
+        }
+
+        #wel {
+            margin-left: 70px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="wel">My Cart</h1>
+    <div id="outer">
+        <div id="left">
+            <div id="products"></div>
+        </div>
+        <div id="right">
+            <h1>Price Details</h1>
+            <h3 id="price"></h3>
+            <h3 id="disc"></h3>
+            <h3>Delivery Charge &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span id="spn">Free</span></h3>
+            <hr>
+            <h2 id="final"></h2>
+            <a href="projDelivery5.html"><button id="checkOut">Proceed to Checkout</button></a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    let cartProd = document.getElementById('products');
+    let products = JSON.parse(localStorage.getItem('cart'));
+    let c = 0;
+    let sum = 0
+
+    products.forEach(function (prod) {
+        let div = document.createElement('div');
+        div.style.border = '1px solid gray';
+        div.style.backgroundColor = '#E0E0E0';
+
+        let img = document.createElement('img');
+        img.style.margin = '20px'
+        img.style.width = '180px'
+        img.style.height = '200px'
+        prodName = document.createElement('h1');
+        prodName.style.color = '#303F9F';
+
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        let p3 = document.createElement('p');
+        let h2 = document.createElement('h2');
+        img.src = prod.image;
+        prodName.textContent = prod.name;
+        p1.textContent = prod.point1;
+        p2.textContent = prod.point2;
+        p3.textContent = prod.point3;
+        if (c % 5 === 0) {
+            h2.textContent = '₹ 499'
+            sum += 499;
+        }
+        else if (c % 5 === 1) {
+            h2.textContent = '₹ 199'
+            sum += 199;
+        }
+        else if (c % 5 === 2) {
+            h2.textContent = '₹ 999'
+            sum += 999;
+        }
+        else if (c % 5 === 3) {
+            h2.textContent = '₹ 299'
+            sum += 299;
+        }
+        else {
+            h2.textContent = '₹ 699'
+            sum += 699;
+        }
+        c++
+
+        div.append(img, prodName, p1, p2, p3, h2);
+        cartProd.append(div);
+    })
+    var price = document.getElementById('price');
+    price.innerHTML = 'Total Price &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ₹ ' + 3 * sum;
+    let disc = document.getElementById('disc');
+    disc.innerHTML = 'Total Discount &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ₹ ' + 2 * sum;
+    let final = document.getElementById('final');
+    final.innerHTML = 'Total Amount &nbsp&nbsp&nbsp&nbsp₹ ' + sum;
+
+</script>
